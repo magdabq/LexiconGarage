@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Garage1 {
+public class GarageUI {
 
 	public static void main(String[] args) {
 		

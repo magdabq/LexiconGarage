@@ -14,5 +14,10 @@ public class Car extends Vehicle {
 
 	public void setCylinderVolume(int cylinderVolume) {
 		this.cylinderVolume = cylinderVolume;
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", en bil med motorvolym " + getCylinderVolume();
+	}
 }
