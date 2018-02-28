@@ -1,14 +1,20 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Garage1 {
+public class GarageUI {
+	
+	Garage garage;
+	Scanner scanner;
 
 	public static void main(String[] args) {
 		
-		Garage garage = new Garage();
+		
+		GarageUI garageUI = new GarageUI();
+		
+		garageUI.garage = new Garage();
 		
 		//För att läsa från användare
-		Scanner scanner = new Scanner(System.in);
+		garageUI.scanner = new Scanner(System.in);
 		
 		ArrayList<String> vehicleTypes = new ArrayList<String>();
 		vehicleTypes.add("Bil");//1:Bil, 2:Motorcykel, 3: Buss, 4: båt, 5: flygplan
@@ -27,11 +33,11 @@ public class Garage1 {
 			System.out.println("Huvudmeny\n---------\n\n");
 			
 			System.out.println("1: registrera ett fordon");
-			
+			System.out.println("9: avsluta");
 			
 			
 			System.out.println("Ange en siffra: ");
-			choice = scanner.nextInt();
+			choice = garageUI.scanner.nextInt();
 			
 			switch(choice) {
 			case 1:
@@ -43,29 +49,20 @@ public class Garage1 {
 					count++;
 				}
 				System.out.println("Ange en siffra: ");
-				subChoice = scanner.nextInt();
-				scanner.nextLine();//måste vara så efter en nextInt om efterföljande är String
+				subChoice = garageUI.scanner.nextInt();
+				garageUI.scanner.nextLine();//måste vara så efter en nextInt om efterföljande är String
 				
 				switch(subChoice) {
 				case 1:
-					//bil
-					
-					System.out.println("Ange registreringsnummer: ");
-					String tempRegNr = scanner.nextLine();
-					System.out.println("Ange färg: ");
-					String tempColor = scanner.nextLine();
-					
-					Car tempCar = new Car(tempRegNr, tempColor);
-					
-					System.out.println("Du har angivit");
-					System.out.println(tempCar);
-					System.out.println("Vill du använda (j/*)?");
-					
-					String answer = scanner.nextLine();
-					
-					if(answer.equalsIgnoreCase("j")) {
-						garage.parcVehicle(tempCar);
+					//fordon
+					try {
+						garageUI.garage.parcVehicle(
+								garageUI.registerVehicleMenu(garageUI.scanner)
+								);
+					} catch (NoVehicleSelectedException e) {
+						System.out.println("Inget fordon angivet");
 					}
+
 					
 					break;
 				
@@ -76,6 +73,28 @@ public class Garage1 {
 			
 		}while(choice != 9);
 		
+	}
+	
+	public Vehicle registerVehicleMenu(Scanner scanner) throws NoVehicleSelectedException{
+		System.out.println("Ange registreringsnummer: ");
+		String tempRegNr = scanner.nextLine();
+		System.out.println("Ange färg: ");
+		String tempColor = scanner.nextLine();
+		
+		Car tempCar = new Car(tempRegNr, tempColor);
+		
+		System.out.println("Du har angivit");
+		System.out.println(tempCar);
+		System.out.println("Vill du använda (j/*)?");
+		
+		String answer = scanner.nextLine();
+		
+		if(answer.equalsIgnoreCase("j")) {
+			return tempCar;
+		}
+		else {
+			throw new NoVehicleSelectedException();
+		}
 	}
 	
 	public static void simpleClearScreen() {
