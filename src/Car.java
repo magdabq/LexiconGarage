@@ -14,8 +14,5 @@ public class Car extends Vehicle {
 
 	public void setCylinderVolume(int cylinderVolume) {
 		this.cylinderVolume = cylinderVolume;
-	}
-	
-	
-	
+	}	
 }

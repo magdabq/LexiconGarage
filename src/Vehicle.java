@@ -39,6 +39,8 @@ public class Vehicle {
 	}
 	
 	
-	
+	public String toString() {
+		return "Vehicle, registration-number: " + getRegistrationNumber() + ", Nr of wheels: " + getNumberOfWheels() + ", color: " + getColor();
+	}
 	
 }
