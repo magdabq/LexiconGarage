@@ -9,12 +9,15 @@ public class GarageUI {
 	 * This is a reference list for the types (of vehicles)
 	 */
 	ArrayList<String> vehicleTypes;
+	
+	public static boolean hasReadInt;//used together with scanner, set after each reading, check before string reading
 
 	public static void main(String[] args) {
+		
+		
 
 
 		GarageUI garageUI = new GarageUI();
-
 		garageUI.garage = new Garage();
 
 		//För att läsa från användare
@@ -45,7 +48,9 @@ public class GarageUI {
 
 
 			System.out.println("Ange en siffra: ");
+			
 			choice = garageUI.scanner.nextInt();
+			hasReadInt=true;
 
 			switch(choice) {
 			case 1:
@@ -56,7 +61,7 @@ public class GarageUI {
 				} catch (NoVehicleTypeSelectedException e1) {
 					System.out.println("Ingen fordonstyp angiven");
 				}
-
+				//
 				try {
 					garageUI.garage.parcVehicle(
 							garageUI.registerVehicleMenu(garageUI.scanner, subChoice)
@@ -79,15 +84,29 @@ public class GarageUI {
 	 * @throws NoVehicleSelectedException
 	 */
 	public Vehicle registerVehicleMenu(Scanner scanner, int vehicleType) throws NoVehicleSelectedException{
+		if(hasReadInt) scanner.nextLine();
+		
 		Vehicle tempVehicle;
 		System.out.println("Ange registreringsnummer: ");
 		String tempRegNr = scanner.nextLine();
 		System.out.println("Ange färg: ");
 		String tempColor = scanner.nextLine();
+		hasReadInt=false;
 
 		switch(vehicleType) {
-		case 1:
+		case 0:
+			System.out.println("Skapar ny bil");
 			tempVehicle = new Car(tempRegNr, tempColor);
+			break;
+		case 1:
+			System.out.println("Skapar ny motorcykel");
+			System.out.println("Ange antal hjul (2 eller 3): ");
+			int numberOfWheels = scanner.nextInt();
+			hasReadInt=true;
+			if(numberOfWheels==2 || numberOfWheels==3) {
+				tempVehicle = new Motorbike(tempRegNr, tempColor, numberOfWheels);
+			}	
+			else throw new NoVehicleSelectedException();
 			break;
 
 		default://om ingen typ bestämts, gör bil
@@ -99,8 +118,10 @@ public class GarageUI {
 		System.out.println("Du har angivit");
 		System.out.println(tempVehicle);
 		System.out.println("Vill du använda (j/*)?");
-
+		
+		if(hasReadInt) scanner.nextLine();
 		String answer = scanner.nextLine();
+		hasReadInt=false;
 
 		if(answer.equalsIgnoreCase("j")) {
 			return tempVehicle;
@@ -110,7 +131,17 @@ public class GarageUI {
 		}
 	}
 
+	/**
+	 * Functions for defining a type of vehicle
+	 * @param scanner - reused scanner object
+	 * @return - the number corresponding to vehicle type in the ArrayList vehicleTypes
+	 * @throws NoVehicleTypeSelectedException
+	 */
 	public int chooseVehicleTypeMenu(Scanner scanner) throws NoVehicleTypeSelectedException{
+		
+		if(hasReadInt) scanner.nextLine();
+		
+		
 		int choice = 0;
 		System.out.println("Välj typ av fordon\n");
 		int count=1;
@@ -120,11 +151,12 @@ public class GarageUI {
 		}
 		System.out.println("Ange en siffra: ");
 		choice = scanner.nextInt();
+		hasReadInt=true;
 		if(choice > vehicleTypes.size() || choice < 1) {
 			throw new NoVehicleTypeSelectedException();
 		}
 		//scanner.nextLine();//måste vara så efter en nextInt om efterföljande är String
-		return choice;
+		return choice-1;
 	}
 
 	public static void simpleClearScreen() {
