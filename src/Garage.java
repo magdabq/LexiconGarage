@@ -4,7 +4,7 @@ public class Garage {
 
 	private final int maxCapacity = 50;
 	private ArrayList<Vehicle> allParkingLotsInGarage = new ArrayList<Vehicle>();
-
+	
 	
 	
 	public static void main(String[] args) {
@@ -19,6 +19,7 @@ public class Garage {
 		garage1.parcVehicle(c2);
 		garage1.parcVehicle(c3);
 		
+		
 		String resultat;
 		
 		try {
@@ -30,8 +31,15 @@ public class Garage {
 		} catch (FoundNoVehicleExeption e) {
 			System.out.println("No car found");			
 		}	
+		ArrayList<Vehicle> listaAvAllaFordon = garage1.getAllParkingLotsInGarage();
+		for (Vehicle fordon : listaAvAllaFordon) {
+			System.out.println(fordon.toString());
+		}
 		
-		System.out.println();
+		ArrayList<String> listaUnikaFordon = garage1.findAllTypesOfVehicles();
+		for (String fordonsTyp : listaUnikaFordon) {
+			System.out.println(fordonsTyp);
+		}
 	}
 	
 	public void parcVehicle(Vehicle newVehicle) {
@@ -72,5 +80,17 @@ public class Garage {
 		return allParkedTypes;
 	}
 	 
-}
+	
+
+	public ArrayList<Vehicle> getAllParkingLotsInGarage() {
+		return allParkingLotsInGarage;
+	}
+
+//	public ArrayList<String> listAllVehicles() {
+//		ArrayList<String> allParkedVehicles = new ArrayList<String>();
+//		for (Vehicle fordon : allParkingLotsInGarage) {
+//			allParkedVehicles.add(fordon.getRegistrationNumber);
+//		}
+//}
+}	
 
