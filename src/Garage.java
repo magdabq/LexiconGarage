@@ -1,40 +1,76 @@
+import java.util.ArrayList;
 
 public class Garage {
 
-	private int maxCapacity;
-	private int nextPosition = 0;
+	private final int maxCapacity = 50;
+	private ArrayList<Vehicle> allParkingLotsInGarage = new ArrayList<Vehicle>();
 
-	private Vehicle[] vehiclesInGarage = new Vehicle[100];
+	
+	
+	public static void main(String[] args) {
+		Garage garage1 = new Garage();
 
+		Car c1 = new Car("EDC123", "white");
+		Car c2 = new Car("EDC124", "Blue");
+		Car c3 = new Car("EDC125", "Red");
+		Car c4 = new Car("EDC126", "Red");
+
+		garage1.parcVehicle(c1);
+		garage1.parcVehicle(c2);
+		garage1.parcVehicle(c3);
+		
+		String resultat;
+		
+		try {
+			resultat = garage1.findVehicle("EDC123").getRegistrationNumber();
+			System.out.println(resultat);
+			resultat = garage1.findVehicle("EDC127").getRegistrationNumber();
+			System.out.println(resultat);
+			
+		} catch (FoundNoVehicleExeption e) {
+			System.out.println("No car found");			
+		}	
+		
+		System.out.println();
+	}
+	
 	public void parcVehicle(Vehicle newVehicle) {
+		allParkingLotsInGarage.add(newVehicle);
+	}//parcVehicle
+	
+	public void unParcVehicle(Vehicle newVehicle) {
+		allParkingLotsInGarage.remove(newVehicle);
+	}//unParcVehicle
 
-		vehiclesInGarage[nextPosition] = newVehicle;
-		nextPosition++;
-	}
+	
+	public Vehicle findVehicle(String registrationNumber) throws FoundNoVehicleExeption {
 
-	public Vehicle findVehicle(String registrationNumber) {
+		for (Vehicle fordon : allParkingLotsInGarage) {
 
-		for (int i = 0; i < nextPosition; i++) {
-
-			if (vehiclesInGarage[i].getRegistrationNumber().equals(registrationNumber)) {
-				return vehiclesInGarage[i];
-			}
-
+			if (fordon.getRegistrationNumber().equals(registrationNumber)) { 	
+				
+				return fordon;
+			}			
 		}
+		throw new FoundNoVehicleExeption();
+	} //findVehicle
 
-		return null;
+	
+	// Letar igenom vehicleList och sparar namnen på de fordonsklasser den hittar i
+	// allParkedTypes.
+	// Returnerar nu endast listan som den är.
+
+	public ArrayList<String> findAllTypesOfVehicles() {
+		ArrayList<String> allParkedTypes = new ArrayList<String>();
+		for (Vehicle fordon : allParkingLotsInGarage) {
+			if (allParkedTypes.contains(fordon.getClass().getName()))
+				;
+			else {
+				allParkedTypes.add(fordon.getClass().getName());
+			}
+		}
+		return allParkedTypes;
 	}
-	
-	
-	
-//	public String getTypesInGarage(Vehicle vehiclesInGarage) {
-//		
-//	private String carType = 0;
-//	private String boatType = 0;
-//	
-//	for (int i = 0; i < nextPosition; i++) {
-//	
-//	
-//	}
+	 
 }
 
