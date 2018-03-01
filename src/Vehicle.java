@@ -4,6 +4,8 @@ public class Vehicle {
 	private String color;//TODO: ersätt med en förenklad RGB-color-wheel med 8 värden (3 bitar) per grundfärg (Red Green Blue)
 	private int numberOfWheels;
 	
+	private final String registrationFormat = "AAA111"; //A pattern to decide what a registration nr. should be. A: letter 1: digit X: any
+	
 	public Vehicle(String registrationNumber, String color, int numberOfWheels) {
 		this.registrationNumber = registrationNumber;
 		this.color = color;
@@ -38,6 +40,31 @@ public class Vehicle {
 		this.numberOfWheels = numberOfWheels;
 	}
 	
+	public boolean acceptRegistrationNumber(String registrationNumber) {
+		//use the registrationFormat variable
+		for(int i=0, j=0; i<registrationFormat.length(); i++, j++) {
+			
+			while(registrationNumber.charAt(j)==' ') {
+				j++;//jumps over any white_space
+			}
+			
+			switch(registrationFormat.charAt(i)) {
+			case 'A':
+				if(!Character.isAlphabetic(registrationNumber.charAt(j))) {
+					return false;
+				}
+				break;
+			case '1':
+				if(!Character.isDigit(registrationNumber.charAt(j))) {
+					return false;
+				}
+				break;
+			case 'X':
+				break;
+			}
+		}
+		return true;
+	}
 	
 	public String toString() {
 		return "Vehicle, registration-number: " + getRegistrationNumber() + ", Nr of wheels: " + getNumberOfWheels() + ", color: " + getColor();

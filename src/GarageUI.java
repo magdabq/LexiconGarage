@@ -2,28 +2,38 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GarageUI {
-	
+
 	Garage garage;
 	Scanner scanner;
+	/**
+	 * This is a reference list for the types (of vehicles)
+	 */
+	ArrayList<String> vehicleTypes;
+	
+	public static boolean hasReadInt;//used together with scanner, set after each reading, check before string reading
 
 	public static void main(String[] args) {
 		
 		
+
+
 		GarageUI garageUI = new GarageUI();
-		
 		garageUI.garage = new Garage();
-		
+
 		//För att läsa från användare
 		garageUI.scanner = new Scanner(System.in);
-		
-		ArrayList<String> vehicleTypes = new ArrayList<String>();
-		vehicleTypes.add("Bil");//1:Bil, 2:Motorcykel, 3: Buss, 4: båt, 5: flygplan
-		
-		
-		
+
+		garageUI.vehicleTypes = new ArrayList<String>();
+		garageUI.vehicleTypes.add("Bil");//1:Bil, 2:Motorcykel, 3: Buss, 4: båt, 5: flygplan
+		garageUI.vehicleTypes.add("Motorcykel");
+		garageUI.vehicleTypes.add("Buss");
+		garageUI.vehicleTypes.add("Boat");
+		garageUI.vehicleTypes.add("Flygplan");
+
+
 		System.out.println("Välkommen till Garage1\n----------------------");
 		//TODO: skriv ut antal fordon parkerade
-		
+
 		//Meny
 		int choice = 0;
 		int subChoice = 0;
@@ -31,74 +41,125 @@ public class GarageUI {
 			//simpleClearScreen(); //behövs ej första varvet
 			System.out.flush();
 			System.out.println("Huvudmeny\n---------\n\n");
-			
-			System.out.println("1: registrera ett fordon");
+
+			System.out.println("1: parkera ett fordon");
+			System.out.println("2: avskriv ett fordon");
 			System.out.println("9: avsluta");
-			
-			
+
+
 			System.out.println("Ange en siffra: ");
-			choice = garageUI.scanner.nextInt();
 			
+			choice = garageUI.scanner.nextInt();
+			hasReadInt=true;
+
 			switch(choice) {
 			case 1:
-				
-				System.out.println("Parkera ett fordon...\nVälj typ av fordon\n");
-				int count=1;
-				for(String type: vehicleTypes) {
-					System.out.println(count + ": " + type);
-					count++;
-				}
-				System.out.println("Ange en siffra: ");
-				subChoice = garageUI.scanner.nextInt();
-				garageUI.scanner.nextLine();//måste vara så efter en nextInt om efterföljande är String
-				
-				switch(subChoice) {
-				case 1:
-					//fordon
-					try {
-						garageUI.garage.parcVehicle(
-								garageUI.registerVehicleMenu(garageUI.scanner)
-								);
-					} catch (NoVehicleSelectedException e) {
-						System.out.println("Inget fordon angivet");
-					}
 
-					
-					break;
-				
+				System.out.println("Parkera ett fordon...");
+				try {
+					subChoice = garageUI.chooseVehicleTypeMenu(garageUI.scanner);
+				} catch (NoVehicleTypeSelectedException e1) {
+					System.out.println("Ingen fordonstyp angiven");
 				}
-				
+				//
+				try {
+					garageUI.garage.parcVehicle(
+							garageUI.registerVehicleMenu(garageUI.scanner, subChoice)
+							);
+				} catch (NoVehicleSelectedException e) {
+					System.out.println("Inget fordon angivet");
+				}
+
 				break;
 			}
-			
+
 		}while(choice != 9);
-		
+
 	}
-	
-	public Vehicle registerVehicleMenu(Scanner scanner) throws NoVehicleSelectedException{
+
+	/**
+	 * A method for retrieving a vehicle from UI - any kind of vehicle
+	 * @param scanner - a reused scanner-object
+	 * @return the retrieved vehicle
+	 * @throws NoVehicleSelectedException
+	 */
+	public Vehicle registerVehicleMenu(Scanner scanner, int vehicleType) throws NoVehicleSelectedException{
+		if(hasReadInt) scanner.nextLine();
+		
+		Vehicle tempVehicle;
 		System.out.println("Ange registreringsnummer: ");
 		String tempRegNr = scanner.nextLine();
 		System.out.println("Ange färg: ");
 		String tempColor = scanner.nextLine();
-		
-		Car tempCar = new Car(tempRegNr, tempColor);
-		
+		hasReadInt=false;
+
+		switch(vehicleType) {
+		case 0:
+			System.out.println("Skapar ny bil");
+			tempVehicle = new Car(tempRegNr, tempColor);
+			break;
+		case 1:
+			System.out.println("Skapar ny motorcykel");
+			System.out.println("Ange antal hjul (2 eller 3): ");
+			int numberOfWheels = scanner.nextInt();
+			hasReadInt=true;
+			if(numberOfWheels==2 || numberOfWheels==3) {
+				tempVehicle = new Motorbike(tempRegNr, tempColor, numberOfWheels);
+			}	
+			else throw new NoVehicleSelectedException();
+			break;
+
+		default://om ingen typ bestämts, gör bil
+			tempVehicle = new Car(tempRegNr, tempColor);
+		}
+
+
+
 		System.out.println("Du har angivit");
-		System.out.println(tempCar);
+		System.out.println(tempVehicle);
 		System.out.println("Vill du använda (j/*)?");
 		
+		if(hasReadInt) scanner.nextLine();
 		String answer = scanner.nextLine();
-		
+		hasReadInt=false;
+
 		if(answer.equalsIgnoreCase("j")) {
-			return tempCar;
+			return tempVehicle;
 		}
 		else {
 			throw new NoVehicleSelectedException();
 		}
 	}
-	
-	public static void simpleClearScreen() {
+
+	/**
+	 * Functions for defining a type of vehicle
+	 * @param scanner - reused scanner object
+	 * @return - the number corresponding to vehicle type in the ArrayList vehicleTypes
+	 * @throws NoVehicleTypeSelectedException
+	 */
+	public int chooseVehicleTypeMenu(Scanner scanner) throws NoVehicleTypeSelectedException{
 		
+		if(hasReadInt) scanner.nextLine();
+		
+		
+		int choice = 0;
+		System.out.println("Välj typ av fordon\n");
+		int count=1;
+		for(String type: vehicleTypes) {
+			System.out.println(count + ": " + type);
+			count++;
+		}
+		System.out.println("Ange en siffra: ");
+		choice = scanner.nextInt();
+		hasReadInt=true;
+		if(choice > vehicleTypes.size() || choice < 1) {
+			throw new NoVehicleTypeSelectedException();
+		}
+		//scanner.nextLine();//måste vara så efter en nextInt om efterföljande är String
+		return choice-1;
+	}
+
+	public static void simpleClearScreen() {
 		System.out.println("\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n");
 	}
 
