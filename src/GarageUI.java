@@ -63,11 +63,8 @@ public class GarageUI {
 						System.out.println("Inget fordon angivet");
 					}
 
-					
 					break;
-				
 				}
-				
 				break;
 			}
 			
@@ -98,7 +95,6 @@ public class GarageUI {
 	}
 	
 	public static void simpleClearScreen() {
-		
 		System.out.println("\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n");
 	}
 
