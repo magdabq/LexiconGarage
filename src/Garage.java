@@ -14,6 +14,7 @@ public class Garage {
 		Car c2 = new Car("EDC124", "Blue");
 		Car c3 = new Car("EDC125", "Red");
 		Car c4 = new Car("EDC126", "Red");
+		Motorbike mc1 = new Motorbike();
 
 		garage1.parcVehicle(c1);
 		garage1.parcVehicle(c2);
@@ -40,7 +41,10 @@ public class Garage {
 		for (String fordonsTyp : listaUnikaFordon) {
 			System.out.println(fordonsTyp);
 		}
+		
+		
 	}
+	
 	
 	public void parcVehicle(Vehicle newVehicle) {
 		allParkingLotsInGarage.add(newVehicle);
@@ -86,6 +90,11 @@ public class Garage {
 		return allParkingLotsInGarage;
 	}
 
+	public int  getNrOfParkedCars() {
+	 int total = allParkingLotsInGarage.size();
+	 return total;
+	}	
+		
 //	public ArrayList<String> listAllVehicles() {
 //		ArrayList<String> allParkedVehicles = new ArrayList<String>();
 //		for (Vehicle fordon : allParkingLotsInGarage) {
