@@ -5,6 +5,7 @@ public class GarageUI {
 
 	Garage garage;
 	Scanner scanner;
+	UIScannerGuard scannerGuard = new UIScannerGuard();
 	/**
 	 * This is a reference list for the types (of vehicles)
 	 */
@@ -15,8 +16,6 @@ public class GarageUI {
 	public static void main(String[] args) {
 		
 		
-
-
 		GarageUI garageUI = new GarageUI();
 		garageUI.garage = new Garage();
 
@@ -44,33 +43,38 @@ public class GarageUI {
 
 			System.out.println("1: parkera ett fordon");
 			System.out.println("2: avskriv ett fordon");
+			System.out.println("3: Lista parkerade fordon");
 			System.out.println("9: avsluta");
-
-
-			System.out.println("Ange en siffra: ");
 			
-			choice = garageUI.scanner.nextInt();
-			hasReadInt=true;
+			choice = garageUI.scannerGuard.readInt("Ange en siffra: ");//garageUI.scanner.nextInt();
+			//hasReadInt=true;
 
 			switch(choice) {
 			case 1:
 
 				System.out.println("Parkera ett fordon...");
 				try {
-					subChoice = garageUI.chooseVehicleTypeMenu(garageUI.scanner);
+					subChoice = garageUI.chooseVehicleTypeMenu(garageUI.scannerGuard);
 				} catch (NoVehicleTypeSelectedException e1) {
 					System.out.println("Ingen fordonstyp angiven");
 				}
 				//
 				try {
 					garageUI.garage.parcVehicle(
-							garageUI.registerVehicleMenu(garageUI.scanner, subChoice)
+							garageUI.registerVehicleMenu(garageUI.scannerGuard, subChoice)
 							);
 				} catch (NoVehicleSelectedException e) {
 					System.out.println("Inget fordon angivet");
 				}
 
 				break;
+			case 2:
+				//TODO: avskriv ett fordon
+				break;
+			case 3:
+				//ArrayList<Vehicle> list = garageUI.garage.
+				break;
+				
 			}
 
 		}while(choice != 9);
@@ -83,15 +87,15 @@ public class GarageUI {
 	 * @return the retrieved vehicle
 	 * @throws NoVehicleSelectedException
 	 */
-	public Vehicle registerVehicleMenu(Scanner scanner, int vehicleType) throws NoVehicleSelectedException{
-		if(hasReadInt) scanner.nextLine();
+	public Vehicle registerVehicleMenu(UIScannerGuard scannerGuard, int vehicleType) throws NoVehicleSelectedException{
+		//if(hasReadInt) scanner.nextLine();
 		
 		Vehicle tempVehicle;
-		System.out.println("Ange registreringsnummer: ");
-		String tempRegNr = scanner.nextLine();
-		System.out.println("Ange färg: ");
-		String tempColor = scanner.nextLine();
-		hasReadInt=false;
+		//System.out.println();
+		String tempRegNr = scannerGuard.readLine("Ange registreringsnummer: ");
+		//System.out.println("Ange färg: ");
+		String tempColor = scannerGuard.readLine("Ange färg: ");
+		//hasReadInt=false;
 
 		switch(vehicleType) {
 		case 0:
@@ -100,9 +104,9 @@ public class GarageUI {
 			break;
 		case 1:
 			System.out.println("Skapar ny motorcykel");
-			System.out.println("Ange antal hjul (2 eller 3): ");
-			int numberOfWheels = scanner.nextInt();
-			hasReadInt=true;
+			//System.out.println();
+			int numberOfWheels = scannerGuard.readInt("Ange antal hjul (2 eller 3): ");
+			//hasReadInt=true;
 			if(numberOfWheels==2 || numberOfWheels==3) {
 				tempVehicle = new Motorbike(tempRegNr, tempColor, numberOfWheels);
 			}	
@@ -117,10 +121,10 @@ public class GarageUI {
 
 		System.out.println("Du har angivit");
 		System.out.println(tempVehicle);
-		System.out.println("Vill du använda (j/*)?");
+		//System.out.println();
 		
-		if(hasReadInt) scanner.nextLine();
-		String answer = scanner.nextLine();
+		//if(hasReadInt) scanner.nextLine();
+		String answer = scannerGuard.readLine("Vill du använda (j/*)?");
 		hasReadInt=false;
 
 		if(answer.equalsIgnoreCase("j")) {
@@ -137,9 +141,9 @@ public class GarageUI {
 	 * @return - the number corresponding to vehicle type in the ArrayList vehicleTypes
 	 * @throws NoVehicleTypeSelectedException
 	 */
-	public int chooseVehicleTypeMenu(Scanner scanner) throws NoVehicleTypeSelectedException{
+	public int chooseVehicleTypeMenu(UIScannerGuard scannerGuard) throws NoVehicleTypeSelectedException{
 		
-		if(hasReadInt) scanner.nextLine();
+		//if(hasReadInt) scanner.nextLine();
 		
 		
 		int choice = 0;
@@ -149,9 +153,9 @@ public class GarageUI {
 			System.out.println(count + ": " + type);
 			count++;
 		}
-		System.out.println("Ange en siffra: ");
-		choice = scanner.nextInt();
-		hasReadInt=true;
+		//System.out.println();
+		choice = scannerGuard.readInt("Ange en siffra: ");
+		//hasReadInt=true;
 		if(choice > vehicleTypes.size() || choice < 1) {
 			throw new NoVehicleTypeSelectedException();
 		}

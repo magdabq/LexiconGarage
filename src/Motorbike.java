@@ -6,4 +6,9 @@ public class Motorbike extends Vehicle {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Motorcykel : " + getRegistrationNumber();
+	}
 }
