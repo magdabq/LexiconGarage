@@ -1,7 +1,7 @@
 
-public class Motorbike extends Vehicle {
+public class Motorcycle extends Vehicle {
 
-	public Motorbike(String registrationNumber, String color, int numberOfWheels) {
+	public Motorcycle(String registrationNumber, String color, int numberOfWheels) {
 		super(registrationNumber, color, numberOfWheels);
 		// TODO Auto-generated constructor stub
 	}

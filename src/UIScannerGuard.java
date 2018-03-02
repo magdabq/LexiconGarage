@@ -31,7 +31,6 @@ public class UIScannerGuard {
 	 * @return
 	 */
 	public String readLine(String message) {
-		String text;
 		System.out.println(message);
 		
 		if(hasReadInt) {

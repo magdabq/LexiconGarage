@@ -109,7 +109,7 @@ public class GarageUI {
 			int numberOfWheels = scannerGuard.readInt("Ange antal hjul (2 eller 3): ");
 			//hasReadInt=true;
 			if(numberOfWheels==2 || numberOfWheels==3) {
-				tempVehicle = new Motorbike(tempRegNr, tempColor, numberOfWheels);
+				tempVehicle = new Motorcycle(tempRegNr, tempColor, numberOfWheels);
 			}	
 			else throw new NoVehicleSelectedException();
 			break;
