@@ -68,13 +68,15 @@ public class GarageUI {
 				
 				//Skriv lista med alla fordon, numrerat
 				
-				garageUI.listAllVehicles();
+				garageUI.listAllVehiclesNumbered();
 				
-				//Välj ett fordon
+				//Välj ett fordon och ta bort det
+				try {
+					garageUI.deleteVehicleByIndexMenu(garageUI.scannerGuard);
+				} catch (NoVehicleSelectedException e) {
+					System.out.println("Kunde inte ta bort fordon...");
+				}
 				
-				//Kontrollera
-				
-				//Ta bort
 				break;
 			case 3:
 				//ArrayList<Vehicle> list = garageUI.garage.
@@ -86,16 +88,25 @@ public class GarageUI {
 
 	}
 
-	private void listAllVehicles() {
+	private void listAllVehiclesNumbered() {
 		int counter =1;
+		if(garage.getAllParkedVehicles().size()>0) {
+			printListHeader();
+		}
+		
 		for(Vehicle vehicle: garage.getAllParkedVehicles()) {
-			System.out.println();
+			String format = "%" + 5 + "d";
+			System.out.printf(format+"      ", counter);
+			System.out.print(centerText(vehicle.getRegistrationNumber(),12));
+			System.out.printf("%30s\n", vehicle.getClass());
+			counter++;
 		}
 		
 	}
 	
 	private void printListHeader() {
-		System.out.println("Löpnummer  Reg-nummer  Typ");
+		//					11 tecken         12     
+		System.out.println("Löpnummer  Reg-nummer               Typ");
 	}
 
 	/**
@@ -160,6 +171,24 @@ public class GarageUI {
 			throw new NoVehicleSelectedException();
 		}
 	}
+	
+	/**
+	 * Askes user for index (1-based) of vehicle, and deletes it
+	 * @param scannerGuard
+	 * @return
+	 */
+	public void deleteVehicleByIndexMenu(UIScannerGuard scannerGuard) throws NoVehicleSelectedException{
+		int choice = 0;
+		choice = scannerGuard.readInt("Välj fordon: ");//tar in ett löpnummer "1..."
+		
+		if(garage.getAllParkedVehicles().get(choice-1) != null) {
+			garage.unParcVehicle(garage.getAllParkedVehicles().get(choice-1));
+		}
+		else {
+			throw new NoVehicleSelectedException();
+		}
+		
+	}
 
 	/**
 	 * Functions for defining a type of vehicle
@@ -191,6 +220,32 @@ public class GarageUI {
 
 	public static void simpleClearScreen() {
 		System.out.println("\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n");
+	}
+	
+	public String centerText(String text, int maxWidth) {
+		int length = text.length();
+		StringBuilder string = new StringBuilder();
+		if(length >= maxWidth) {
+			return text;
+		}
+		else {
+			int spare = length;
+			int leftSpace = spare/2;
+			spare = maxWidth-length-leftSpace;
+			
+			for(int i=0; i<leftSpace; i++) {
+				string.append(" ");
+			}
+			
+			string.append(text);
+			
+			for(int i=0;i<spare;i++) {
+				string.append(" ");
+			}
+			
+			return string.toString();
+		}
+		
 	}
 
 }
