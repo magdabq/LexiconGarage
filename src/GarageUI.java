@@ -10,8 +10,6 @@ public class GarageUI {
 	 * This is a reference list for the types (of vehicles)
 	 */
 	ArrayList<String> vehicleTypes;
-	
-	public static boolean hasReadInt;//used together with scanner, set after each reading, check before string reading
 
 	public static void main(String[] args) {
 		
@@ -29,21 +27,17 @@ public class GarageUI {
 		garageUI.vehicleTypes.add("Boat");
 		garageUI.vehicleTypes.add("Flygplan");
 
-
-		System.out.println("Välkommen till Garage1\n----------------------");
-		//TODO: skriv ut antal fordon parkerade
-
 		//Meny
 		int choice = 0;
 		int subChoice = 0;
 		do {
 			//simpleClearScreen(); //behövs ej första varvet
-			//TODO: skriv nr
+
 			System.out.flush();
-			System.out.println("Huvudmeny (antal fordon: )\n---------\n\n");
+			System.out.println("Välkommen till Garage1 (antal fordon: " + garageUI.garage.getNrOfParkedCars() + ", kapacitet: " + garageUI.garage.getMaxCapacity() + ")\n----------------------");
 
 			System.out.println("1: parkera ett fordon");
-			System.out.println("2: avskriv ett fordon");
+			System.out.println("2: avregistrera ett fordon");
 			System.out.println("3: Lista parkerade fordon");
 			System.out.println("9: avsluta");
 			
@@ -70,7 +64,17 @@ public class GarageUI {
 
 				break;
 			case 2:
-				//TODO: avskriv ett fordon
+				//TODO: avregistrera ett fordon
+				
+				//Skriv lista med alla fordon, numrerat
+				
+				garageUI.listAllVehicles();
+				
+				//Välj ett fordon
+				
+				//Kontrollera
+				
+				//Ta bort
 				break;
 			case 3:
 				//ArrayList<Vehicle> list = garageUI.garage.
@@ -82,6 +86,18 @@ public class GarageUI {
 
 	}
 
+	private void listAllVehicles() {
+		int counter =1;
+		for(Vehicle vehicle: garage.getAllParkedVehicles()) {
+			System.out.println();
+		}
+		
+	}
+	
+	private void printListHeader() {
+		System.out.println("Löpnummer  Reg-nummer  Typ");
+	}
+
 	/**
 	 * A method for retrieving a vehicle from UI - any kind of vehicle
 	 * @param scanner - a reused scanner-object
@@ -91,7 +107,7 @@ public class GarageUI {
 	public Vehicle registerVehicleMenu(UIScannerGuard scannerGuard, int vehicleType) throws NoVehicleSelectedException{
 		//if(hasReadInt) scanner.nextLine();
 		
-		Vehicle tempVehicle;
+		Vehicle tempVehicle = new Vehicle();
 		//System.out.println();
 		String tempRegNr = scannerGuard.readLine("Ange registreringsnummer: ");
 		//System.out.println("Ange färg: ");
@@ -113,9 +129,16 @@ public class GarageUI {
 			}	
 			else throw new NoVehicleSelectedException();
 			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
 
 		default://om ingen typ bestämts, gör bil
 			tempVehicle = new Car(tempRegNr, tempColor);
+			System.out.println("Skapade per default en bil...");
 		}
 
 
@@ -126,12 +149,14 @@ public class GarageUI {
 		
 		//if(hasReadInt) scanner.nextLine();
 		String answer = scannerGuard.readLine("Vill du använda (j/*)?");
-		hasReadInt=false;
+
 
 		if(answer.equalsIgnoreCase("j")) {
+			System.out.println("Ska returnera " + tempVehicle);
 			return tempVehicle;
 		}
 		else {
+			System.out.println("Inget fordon angivet");
 			throw new NoVehicleSelectedException();
 		}
 	}
