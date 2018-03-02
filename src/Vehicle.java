@@ -42,7 +42,7 @@ public class Vehicle {
 	
 	public boolean acceptRegistrationNumber(String registrationNumber) {
 		//use the registrationFormat variable
-		for(int i=0, j=0; i<registrationFormat.length(); i++, j++) {
+		for(int i=0, j=0; i<registrationFormat.length() && j<registrationNumber.length(); i++, j++) {
 			
 			while(registrationNumber.charAt(j)==' ') {
 				j++;//jumps over any white_space

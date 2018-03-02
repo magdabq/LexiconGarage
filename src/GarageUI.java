@@ -38,8 +38,9 @@ public class GarageUI {
 		int subChoice = 0;
 		do {
 			//simpleClearScreen(); //behövs ej första varvet
+			//TODO: skriv nr
 			System.out.flush();
-			System.out.println("Huvudmeny\n---------\n\n");
+			System.out.println("Huvudmeny (antal fordon: )\n---------\n\n");
 
 			System.out.println("1: parkera ett fordon");
 			System.out.println("2: avskriv ett fordon");
