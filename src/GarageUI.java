@@ -37,7 +37,7 @@ public class GarageUI {
 			System.out.println("Välkommen till Garage1 (antal fordon: " + garageUI.garage.getNrOfParkedCars() + ", kapacitet: " + garageUI.garage.getMaxCapacity() + ")\n----------------------");
 
 			System.out.println("1: parkera ett fordon");
-			System.out.println("2: avskriv ett fordon");
+			System.out.println("2: avregistrera ett fordon");
 			System.out.println("3: Lista parkerade fordon");
 			System.out.println("9: avsluta");
 			
@@ -64,7 +64,17 @@ public class GarageUI {
 
 				break;
 			case 2:
-				//TODO: avskriv ett fordon
+				//TODO: avregistrera ett fordon
+				
+				//Skriv lista med alla fordon, numrerat
+				
+				garageUI.listAllVehicles();
+				
+				//Välj ett fordon
+				
+				//Kontrollera
+				
+				//Ta bort
 				break;
 			case 3:
 				//ArrayList<Vehicle> list = garageUI.garage.
@@ -74,6 +84,18 @@ public class GarageUI {
 
 		}while(choice != 9);
 
+	}
+
+	private void listAllVehicles() {
+		int counter =1;
+		for(Vehicle vehicle: garage.getAllParkedVehicles()) {
+			System.out.println();
+		}
+		
+	}
+	
+	private void printListHeader() {
+		System.out.println("Löpnummer  Reg-nummer  Typ");
 	}
 
 	/**
