@@ -22,7 +22,7 @@ public class Garage {
 		Car c2 = new Car("EDC124", "Blue");
 		Car c3 = new Car("EDC125", "Red");
 		Car c4 = new Car("EDC126", "Red");
-		Car c5 = new Car("EDC126", "Green");
+		Car c5 = new Car("EDC126", "Green, ");
 		
 		Motorcycle mc1 = new Motorcycle("ABC111","black", 2);
 		Motorcycle mc2 = new Motorcycle("ABC222","black", 2);
@@ -48,12 +48,12 @@ public class Garage {
 		
 		try {
 			resultat = garage1.findVehicleByRegistraitionNumber("EDC123").getRegistrationNumber();
-			System.out.println("Hittade bilen med regnr resultat " + resultat);
-			
-			arrayResultat = garage1.findVehiclesByNrOfWheels(i);
-			System.out.println();
-			System.out.println("Hittade dessa fordon med " + i + " hjul " + arrayResultat);
-			
+		System.out.println("Hittade bilen med regnr resultat " + resultat);
+//			
+//			arrayResultat = garage1.findVehiclesByNrOfWheels(i);
+//			System.out.println();
+//			System.out.println("Hittade dessa fordon med " + i + " hjul " + arrayResultat);
+//			
 		} catch (FoundNoVehicleExeption e) {
 			System.out.println("No car found");			
 		}	
@@ -99,7 +99,7 @@ public class Garage {
 	}//unParcVehicle
 
 	
-	public Vehicle findVehicleByRegistraitionNumber(String registrationNumber) throws FoundNoVehicleExeption {
+	public Vehicle findVehicleByRegistraitionNumber(String registrationNumber)  throws FoundNoVehicleExeption {
 
 		for (Vehicle fordon : allParkedVehicles) {
 
@@ -155,14 +155,6 @@ public class Garage {
 	 int total = allParkedVehicles.size();
 	 return total;
 	}	
-		
-//	public ArrayList<String> listAllVehicles() {
-//		ArrayList<String> listAllVehicles = new ArrayList<String>();
-//		for (Vehicle fordon : allParkedVehicles) {
-//			listAllVehicles.add(fordon.getRegistrationNumber());
-//		}
-//		return listAllVehicles;
-//	}
-	
+
 }	
 

@@ -12,20 +12,20 @@ public class Vehicle {
 		this.numberOfWheels = numberOfWheels;
 	}
 	
-	public Vehicle(String registrationNumber, int numberOfWheels) {
-		this(registrationNumber, "", numberOfWheels);
-	}
-	
-	public Vehicle(int numberOfWheels) {
-		this("", "", numberOfWheels);
-	}
-	
-	public Vehicle(String color) {
-		this.color = color;
-	}
-	
-	public Vehicle() {
-	}
+//	public Vehicle(String registrationNumber, int numberOfWheels) {
+//		this(registrationNumber, "", numberOfWheels);
+//	}
+//	
+//	public Vehicle(int numberOfWheels) {
+//		this("", "", numberOfWheels);
+//	}
+//	
+//	public Vehicle(String color) {
+//		this.color = color;
+//	}
+//	
+//	public Vehicle() {
+//	}
 
 	public String getRegistrationNumber() {
 		return registrationNumber;

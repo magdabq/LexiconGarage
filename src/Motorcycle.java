@@ -1,25 +1,29 @@
 
 public class Motorcycle extends Vehicle {
-	
+
 	private int cylinderVolume;
 
-	public Motorcycle(String registrationNumber, String color, int numberOfWheels) {
+	public Motorcycle(String registrationNumber, String color, int numberOfWheels, int cylinderVolume) {
 		super(registrationNumber, color, numberOfWheels);
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 
-	
-	public int getCylinderVolume() {
-		return cylinderVolume;
+		this.cylinderVolume = cylinderVolume;
 	}
 
+	public Motorcycle(String registrationNumber, String color, int cylinderVolume) {
+		super(registrationNumber, color, 2);
+	
+	this.cylinderVolume = cylinderVolume;
 
-
-
-	@Override
-	public String toString() {
-		return "Motorcykel : " + getRegistrationNumber();
 	}
+
+
+public int getCylinderVolume() {
+	return cylinderVolume;
+}
+
+
+@Override
+public String toString() {
+	return "Motorcykel : " + getRegistrationNumber();
+}
 }

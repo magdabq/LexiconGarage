@@ -8,14 +8,17 @@ public class Boat extends Vehicle {
 		this.length = length;
 	}
 	
-	public Boat(int length) {
-		this.length = length;
-	}
+//	public Boat(int length) {
+//		this.length = length;
+//	}
 
 	public int getLength() {
 		return length;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Båt : " + getRegistrationNumber();
+	}
 	
 }
