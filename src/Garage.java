@@ -22,8 +22,8 @@ public class Garage {
 		Car c2 = new Car("EDC124", "Blue");
 		Car c3 = new Car("EDC125", "Red");
 		Car c4 = new Car("EDC126", "Red");
-		Motorbike mc1 = new Motorbike("ABC111","black", 2);
-		Motorbike mc2 = new Motorbike("ABC222","black", 2);
+		Motorcycle mc1 = new Motorcycle("ABC111","black", 2);
+		Motorcycle mc2 = new Motorcycle("ABC222","black", 2);
 
 		garage1.parcVehicle(c1);
 		garage1.parcVehicle(c2);
