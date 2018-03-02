@@ -19,6 +19,13 @@ public class Vehicle {
 	public Vehicle(int numberOfWheels) {
 		this("", "", numberOfWheels);
 	}
+	
+	public Vehicle(String color) {
+		this.color = color;
+	}
+	
+	public Vehicle() {
+	}
 
 	public String getRegistrationNumber() {
 		return registrationNumber;
