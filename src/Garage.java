@@ -2,14 +2,22 @@ import java.util.ArrayList;
 
 public class Garage {
 
-	private final int maxCapacity = 50;
-	private ArrayList<Vehicle> allParkingLotsInGarage = new ArrayList<Vehicle>();
+	private final int maxCapacity;
+	private ArrayList<Vehicle> allParkedVehicles = new ArrayList<Vehicle>();
 	
+	public Garage() {
+	maxCapacity = 50;	
+	}
 	
+	public Garage(int maxCapacity) {
+		this.maxCapacity = maxCapacity;
+		
+	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		//Härinne testar jag!!!!
 		Garage garage1 = new Garage();
-
+		Garage garage2 = new Garage(70);
+		
 		Car c1 = new Car("EDC123", "white");
 		Car c2 = new Car("EDC124", "Blue");
 		Car c3 = new Car("EDC125", "Red");
@@ -20,45 +28,61 @@ public class Garage {
 		garage1.parcVehicle(c1);
 		garage1.parcVehicle(c2);
 		garage1.parcVehicle(c3);
+		garage1.parcVehicle(mc1);
+		garage1.parcVehicle(mc2);
 		
+		System.out.println("Så här många platser upptagna i Garaget:  " + garage1.allParkedVehicles.size());
+		//System.out.println(garage1.getAllParkedVehicles());
+		//System.out.println(garage2.getMaxCapacity());
 		
 		String resultat;
 		
 		try {
-			resultat = garage1.findVehicle("EDC123").getRegistrationNumber();
+			resultat = garage1.findVehicleRegistraitionNumber("EDC123").getRegistrationNumber();
 			System.out.println(resultat);
-			resultat = garage1.findVehicle("EDC127").getRegistrationNumber();
+			resultat = "" + garage1.findVehicleNrOfWheels(2).getNumberOfWheels();
 			System.out.println(resultat);
 			
 		} catch (FoundNoVehicleExeption e) {
 			System.out.println("No car found");			
 		}	
-		ArrayList<Vehicle> listaAvAllaFordon = garage1.getAllParkingLotsInGarage();
-		for (Vehicle fordon : listaAvAllaFordon) {
-			System.out.println(fordon.toString());
-		}
 		
-		ArrayList<String> listaUnikaFordon = garage1.findAllTypesOfVehicles();
-		for (String fordonsTyp : listaUnikaFordon) {
-			System.out.println(fordonsTyp);
-		}
+//		//Testar och skriver ut regnr på alla fordon som finns i garaget
+//		ArrayList<Vehicle> listaAvAllaFordon = garage1.getAllParkedVehicles();
+//		for (Vehicle fordon : listaAvAllaFordon) {
+//			System.out.println(fordon.getRegistrationNumber());
+//			}
+//		
+//		//Testar och skriver ut de olika fordonstyperna som finns i garaget
+//		ArrayList<String> listaUnikaFordon = garage1.findAllTypesOfVehicles();
+//		System.out.println("Fordonstyper i Garaget:");
+//		for (String fordonsTyp : listaUnikaFordon) {
+//			// TODO OBS! Ger typerna på engelska fixa?
+//			System.out.print(" " + fordonsTyp);
+//		}
 		
 		
+	}//															Här slutar mitt testblockk!!
+	
+	
+	
+	public int getMaxCapacity() {
+		return maxCapacity;
 	}
-	
-	
+
+
 	public void parcVehicle(Vehicle newVehicle) {
-		allParkingLotsInGarage.add(newVehicle);
+		allParkedVehicles.add(newVehicle);
 	}//parcVehicle
 	
 	public void unParcVehicle(Vehicle newVehicle) {
-		allParkingLotsInGarage.remove(newVehicle);
+		allParkedVehicles.remove(newVehicle);
 	}//unParcVehicle
 
 	
-	public Vehicle findVehicle(String registrationNumber) throws FoundNoVehicleExeption {
+	public Vehicle findVehicleRegistraitionNumber(String registrationNumber) throws FoundNoVehicleExeption {
 
-		for (Vehicle fordon : allParkingLotsInGarage) {
+		for (Vehicle fordon : allParkedVehicles) {
 
 			if (fordon.getRegistrationNumber().equals(registrationNumber)) { 	
 				
@@ -66,8 +90,23 @@ public class Garage {
 			}			
 		}
 		throw new FoundNoVehicleExeption();
-	} //findVehicle
+		
+	} //findVehicleRegnr
+	
 
+	public Vehicle findVehicleNrOfWheels(int nrOfWheels) throws FoundNoVehicleExeption {
+
+		for (Vehicle fordon : allParkedVehicles) {
+
+			if (fordon.getNumberOfWheels() == nrOfWheels) { 	
+				
+				return fordon;
+			}			
+		}
+		throw new FoundNoVehicleExeption();
+		
+	} //findVehicleNrOfWheels
+	
 	
 	// Letar igenom vehicleList och sparar namnen på de fordonsklasser den hittar i
 	// allParkedTypes.
@@ -75,7 +114,7 @@ public class Garage {
 
 	public ArrayList<String> findAllTypesOfVehicles() {
 		ArrayList<String> allParkedTypes = new ArrayList<String>();
-		for (Vehicle fordon : allParkingLotsInGarage) {
+		for (Vehicle fordon : allParkedVehicles) {
 			if (allParkedTypes.contains(fordon.getClass().getName()))
 				;
 			else {
@@ -87,12 +126,12 @@ public class Garage {
 	 
 	
 
-	public ArrayList<Vehicle> getAllParkingLotsInGarage() {
-		return allParkingLotsInGarage;
+	public ArrayList<Vehicle> getAllParkedVehicles() {
+		return allParkedVehicles;
 	}
 
 	public int  getNrOfParkedCars() {
-	 int total = allParkingLotsInGarage.size();
+	 int total = allParkedVehicles.size();
 	 return total;
 	}	
 		
