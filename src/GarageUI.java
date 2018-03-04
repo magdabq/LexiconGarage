@@ -9,83 +9,146 @@ public class GarageUI {
 	/**
 	 * This is a reference list for the types (of vehicles)
 	 */
-	ArrayList<String> vehicleTypes;
+	ArrayList<String> vehicleTypesLocalLang;
+	/**
+	 * This is corresponding to previous list
+	 */
+	ArrayList<Vehicle> vehicleClasses;
 
 	public static void main(String[] args) {
 		
 		
 		GarageUI garageUI = new GarageUI();
-		garageUI.garage = new Garage();
+		garageUI.garage = null;
 
 		//För att läsa från användare
-		garageUI.scanner = new Scanner(System.in);
+		//garageUI.scanner = new Scanner(System.in);
 
-		garageUI.vehicleTypes = new ArrayList<String>();
-		garageUI.vehicleTypes.add("Bil");//1:Bil, 2:Motorcykel, 3: Buss, 4: båt, 5: flygplan
-		garageUI.vehicleTypes.add("Motorcykel");
-		garageUI.vehicleTypes.add("Buss");
-		garageUI.vehicleTypes.add("Boat");
-		garageUI.vehicleTypes.add("Flygplan");
+		garageUI.vehicleTypesLocalLang = new ArrayList<String>();
+		garageUI.vehicleTypesLocalLang.add("Bil");//1:Bil, 2:Motorcykel, 3: Buss, 4: båt, 5: flygplan
+		garageUI.vehicleTypesLocalLang.add("Motorcykel");
+		garageUI.vehicleTypesLocalLang.add("Buss");
+		garageUI.vehicleTypesLocalLang.add("Boat");
+		garageUI.vehicleTypesLocalLang.add("Flygplan");
+		
+		
+		garageUI.vehicleClasses = new ArrayList<Vehicle>();
+		garageUI.vehicleClasses.add(new Car("aaa111","none"));
+		garageUI.vehicleClasses.add(new Motorcycle("aaa111", "none", 2));
+		garageUI.vehicleClasses.add(new Bus(0));
+		garageUI.vehicleClasses.add(new Boat(0));
+		garageUI.vehicleClasses.add(new Airplane(0));
+		
+		
+		
 
 		//Meny
 		int choice = 0;
 		int subChoice = 0;
 		do {
 			//simpleClearScreen(); //behövs ej första varvet
-
-			System.out.flush();
-			System.out.println("Välkommen till Garage1 (antal fordon: " + garageUI.garage.getNrOfParkedCars() + ", kapacitet: " + garageUI.garage.getMaxCapacity() + ")\n----------------------");
-
-			System.out.println("1: parkera ett fordon");
-			System.out.println("2: avregistrera ett fordon");
-			System.out.println("3: Lista parkerade fordon");
-			System.out.println("9: avsluta");
 			
-			choice = garageUI.scannerGuard.readInt("Ange en siffra: ");//garageUI.scanner.nextInt();
-			//hasReadInt=true;
-
-			switch(choice) {
-			case 1:
-
-				System.out.println("Parkera ett fordon...");
-				try {
-					subChoice = garageUI.chooseVehicleTypeMenu(garageUI.scannerGuard);
-				} catch (NoVehicleTypeSelectedException e1) {
-					System.out.println("Ingen fordonstyp angiven");
+			if(garageUI.garage == null) {
+				System.out.print("Välkommen till Garage1-appen. Vill du skapa ett garage (j/*)? ");
+				String svar = garageUI.scannerGuard.readLine("");
+				if(svar.equalsIgnoreCase("j")) {
+					garageUI.garage = new Garage();
 				}
-				//
-				try {
-					garageUI.garage.parcVehicle(
-							garageUI.registerVehicleMenu(garageUI.scannerGuard, subChoice)
-							);
-				} catch (NoVehicleSelectedException e) {
-					System.out.println("Inget fordon angivet");
+				else {
+					return;//avsluta
 				}
-
-				break;
-			case 2:
-				//TODO: avregistrera ett fordon
-				
-				//Skriv lista med alla fordon, numrerat
-				
-				garageUI.listAllVehiclesNumbered();
-				
-				//Välj ett fordon och ta bort det
-				try {
-					garageUI.deleteVehicleByIndexMenu(garageUI.scannerGuard);
-				} catch (NoVehicleSelectedException e) {
-					System.out.println("Kunde inte ta bort fordon...");
-				}
-				
-				break;
-			case 3:
-				//ArrayList<Vehicle> list = garageUI.garage.
-				break;
 				
 			}
+			else {
+
+				System.out.flush();
+				System.out.println("Välkommen till Garage1 (antal fordon: " + garageUI.garage.getNrOfParkedCars() + ", kapacitet: " + garageUI.garage.getMaxCapacity() + ")\n----------------------");
+
+				System.out.println("1: parkera ett fordon");
+				System.out.println("2: avregistrera ett fordon");
+				System.out.println("3: Lista parkerade fordon");
+				System.out.println("4. Lista typer av fordon parkerade");
+				System.out.println("5j. Sök på fordon");
+				System.out.println("9: avsluta");
+				
+				choice = garageUI.scannerGuard.readInt("Ange en siffra: ");//garageUI.scanner.nextInt();
+				//hasReadInt=true;
+
+				switch(choice) {
+				case 1:
+
+					System.out.println("Parkera ett fordon...");
+					try {
+						subChoice = garageUI.chooseVehicleTypeMenu(garageUI.scannerGuard);
+					} catch (NoVehicleTypeSelectedException e1) {
+						System.out.println("Ingen fordonstyp angiven");
+					}
+					//
+					try {
+						garageUI.garage.parcVehicle(
+								garageUI.registerVehicleMenu(garageUI.scannerGuard, subChoice)
+								);
+					} catch (NoVehicleSelectedException e) {
+						System.out.println("Inget fordon angivet");
+					}
+
+					break;
+				case 2:
+					//TODO: avregistrera ett fordon
+					
+					//Skriv lista med alla fordon, numrerat
+					
+					garageUI.listAllVehiclesNumbered();
+					
+					//Välj ett fordon och ta bort det
+					try {
+						garageUI.deleteVehicleByIndexMenu(garageUI.scannerGuard);
+					} catch (NoVehicleSelectedException e) {
+						System.out.println("Kunde inte ta bort fordon...");
+					}
+					
+					break;
+				case 3:
+					//ArrayList<Vehicle> list = garageUI.garage.
+					garageUI.listAllVehiclesNumbered();
+					break;
+				case 4://lista typer av fordon
+					garageUI.listAllTypesInGarage();
+					break;
+				case 5://sök
+					
+				}
+			}
+
+			
 
 		}while(choice != 9);
 
+	}
+
+	private void listAllTypesInGarage() {
+		// TODO Auto-generated method stub
+		ArrayList<String> foundTypes = garage.findAllTypesOfVehicles();
+		
+		ArrayList<String> allTypes = new ArrayList<String>();
+		
+		//assemble all types
+		for(Vehicle type : vehicleClasses) {
+			allTypes.add(type.getClass().getName());
+		}
+		
+		int counter=0;
+		//int foundIndex = -1;
+		for(String typeString : foundTypes) {
+			
+			if(allTypes.contains(typeString)) {
+				int x = allTypes.indexOf(typeString);
+				System.out.println(vehicleTypesLocalLang.get(x));
+			}
+			
+			counter++;
+		}
+		
 	}
 
 	private void listAllVehiclesNumbered() {
@@ -204,14 +267,14 @@ public class GarageUI {
 		int choice = 0;
 		System.out.println("Välj typ av fordon\n");
 		int count=1;
-		for(String type: vehicleTypes) {
+		for(String type: vehicleTypesLocalLang) {
 			System.out.println(count + ": " + type);
 			count++;
 		}
 		//System.out.println();
 		choice = scannerGuard.readInt("Ange en siffra: ");
 		//hasReadInt=true;
-		if(choice > vehicleTypes.size() || choice < 1) {
+		if(choice > vehicleTypesLocalLang.size() || choice < 1) {
 			throw new NoVehicleTypeSelectedException();
 		}
 		//scanner.nextLine();//måste vara så efter en nextInt om efterföljande är String
