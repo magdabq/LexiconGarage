@@ -35,9 +35,9 @@ public class GarageUI {
 		garageUI.vehicleClasses = new ArrayList<Vehicle>();
 		garageUI.vehicleClasses.add(new Car("aaa111","none"));
 		garageUI.vehicleClasses.add(new Motorcycle("aaa111", "none", 2));
-		garageUI.vehicleClasses.add(new Bus(0));
-		garageUI.vehicleClasses.add(new Boat(0));
-		garageUI.vehicleClasses.add(new Airplane(0));
+		garageUI.vehicleClasses.add(new Bus("","",0,0));
+		garageUI.vehicleClasses.add(new Boat("","",0));
+		garageUI.vehicleClasses.add(new Airplane("", "", 0, 0));
 		
 		
 		
@@ -62,7 +62,7 @@ public class GarageUI {
 			else {
 
 				System.out.flush();
-				System.out.println("Välkommen till Garage1 (antal fordon: " + garageUI.garage.getNrOfParkedCars() + ", kapacitet: " + garageUI.garage.getMaxCapacity() + ")\n----------------------");
+				System.out.println("Välkommen till Garage1 (antal fordon: " + garageUI.garage.getNrOfParkedVehicles() + ", kapacitet: " + garageUI.garage.getMaxCapacity() + ")\n----------------------");
 
 				System.out.println("1: parkera ett fordon");
 				System.out.println("2: avregistrera ett fordon");
@@ -85,7 +85,7 @@ public class GarageUI {
 					}
 					//
 					try {
-						garageUI.garage.parcVehicle(
+						garageUI.garage.parkVehicle(
 								garageUI.registerVehicleMenu(garageUI.scannerGuard, subChoice)
 								);
 					} catch (NoVehicleSelectedException e) {
@@ -181,7 +181,7 @@ public class GarageUI {
 	public Vehicle registerVehicleMenu(UIScannerGuard scannerGuard, int vehicleType) throws NoVehicleSelectedException{
 		//if(hasReadInt) scanner.nextLine();
 		
-		Vehicle tempVehicle = new Vehicle();
+		Vehicle tempVehicle = new Vehicle("", "", 0);
 		//System.out.println();
 		String tempRegNr = scannerGuard.readLine("Ange registreringsnummer: ");
 		//System.out.println("Ange färg: ");
@@ -205,7 +205,7 @@ public class GarageUI {
 		case 2://buss
 			int numberOfSeats = scannerGuard.readInt("Ange antal säten i bussen: ");
 			if(numberOfSeats>=0) {
-				tempVehicle = new Bus(numberOfSeats);
+				tempVehicle = new Bus(tempColor, tempRegNr, 6, numberOfSeats);
 			}
 			else {
 				throw new NoVehicleSelectedException();
@@ -214,7 +214,7 @@ public class GarageUI {
 		case 3://båt
 			int length = scannerGuard.readInt("Ange båtens längd i antal hela meter: ");
 			if(length>=0) {
-				tempVehicle = new Boat(length);
+				tempVehicle = new Boat(tempRegNr, tempColor, length);
 			}
 			else {
 				throw new NoVehicleSelectedException();
@@ -223,7 +223,7 @@ public class GarageUI {
 		case 4://flygplan
 			int numberOfEngines = scannerGuard.readInt("Ange antal motorer på flygplanet: ");
 			if(numberOfEngines>=0) {
-				tempVehicle = new Airplane(numberOfEngines);
+				tempVehicle = new Airplane(tempRegNr, tempColor, 3, numberOfEngines);
 			}
 			else {
 				throw new NoVehicleSelectedException();
@@ -265,7 +265,7 @@ public class GarageUI {
 		choice = scannerGuard.readInt("Välj fordon: ");//tar in ett löpnummer "1..."
 		
 		if(garage.getAllParkedVehicles().get(choice-1) != null) {
-			garage.unParcVehicle(garage.getAllParkedVehicles().get(choice-1));
+			garage.unParkVehicle(garage.getAllParkedVehicles().get(choice-1));
 		}
 		else {
 			throw new NoVehicleSelectedException();
