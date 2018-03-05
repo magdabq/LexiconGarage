@@ -257,9 +257,10 @@ public class GarageUI {
 		case 1://motorcykel
 			//System.out.println();
 			int numberOfWheels = scannerGuard.readInt("Ange antal hjul (2 eller 3) på motorcykeln: ");
+			int cylinderSize = scannerGuard.readInt("Ange antal cylinderstorlek på motorcykeln: ");
 			//hasReadInt=true;
 			if(numberOfWheels==2 || numberOfWheels==3) {
-				tempVehicle = new Motorcycle(tempRegNr, tempColor, numberOfWheels);
+				tempVehicle = new Motorcycle(tempRegNr, tempColor, numberOfWheels, cylinderSize);
 			}	
 			else throw new NoVehicleSelectedException();
 			break;

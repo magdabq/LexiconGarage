@@ -24,7 +24,7 @@ public class Motorcycle extends Vehicle {
 
 	@Override
 	public String toString() {
-		return "Motorcykel : " + getRegistrationNumber() + ", cylindervolym: " + getCylinderVolume();
+		return "Motorcykel : " + getRegistrationNumber() + ", cylindervolym: " + getCylinderVolume() + ", antal hjul: " + getNumberOfWheels();
 	}
 
 }
