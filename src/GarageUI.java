@@ -117,7 +117,7 @@ public class GarageUI {
 					garageUI.listAllTypesInGarage();
 					break;
 				case 5://sök
-					garageUI.searchVehicleMenu();
+					garageUI.searchVehicleByRegistrationNumberMenu();
 					break;
 				case 6:
 					garageUI.setGarageCapacity();
@@ -136,13 +136,27 @@ public class GarageUI {
 		
 	}
 
-	private void searchVehicleMenu() {
+	private void searchVehicleByRegistrationNumberMenu() {
 		String searchTerm = scannerGuard.readLine("Ange registreringsnummer: ");
 		Vehicle foundVehicle;
 		try {
 			foundVehicle = garage.findVehicleByRegistraitionNumber(searchTerm);
 			
 			System.out.println("Hittade: " + foundVehicle);
+		} catch (FoundNoVehicleExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void searchVehicleByNumberOfWheelsMenu() {
+		int searchTerm = scannerGuard.readInt("Ange antal hjul: ");
+		ArrayList<Vehicle> foundVehicles;
+		try {
+			foundVehicles = garage.findVehiclesByNrOfWheels(searchTerm);
+			
+			System.out.println("Hittade: " + foundVehicles);
 		} catch (FoundNoVehicleExeption e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
