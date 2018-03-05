@@ -117,7 +117,8 @@ public class GarageUI {
 					garageUI.listAllTypesInGarage();
 					break;
 				case 5://sök
-					garageUI.searchVehicleByRegistrationNumberMenu();
+					garageUI.searchMenu();
+					
 					break;
 				case 6:
 					garageUI.setGarageCapacity();
@@ -128,6 +129,20 @@ public class GarageUI {
 
 		}while(choice != 9);
 
+	}
+
+	private void searchMenu() {
+		int choice = scannerGuard.readInt("1: sök på registreringsnummer\n2: sök på antal hjul: ");
+		if(choice==1) {
+			
+			searchVehicleByRegistrationNumberMenu();
+		}
+		else if(choice==2) {
+			
+			searchVehicleByNumberOfWheelsMenu();
+			
+		}
+		
 	}
 
 	private void setGarageCapacity() {
