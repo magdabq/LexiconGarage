@@ -69,6 +69,7 @@ public class GarageUI {
 				System.out.println("3: Lista parkerade fordon");
 				System.out.println("4. Lista typer av fordon parkerade");
 				System.out.println("5. Sök på fordon");
+				System.out.println("6: Ställ in garagets kapacitet");
 				System.out.println("9: avsluta");
 				
 				choice = garageUI.scannerGuard.readInt("Ange en siffra: ");//garageUI.scanner.nextInt();
@@ -116,7 +117,10 @@ public class GarageUI {
 					garageUI.listAllTypesInGarage();
 					break;
 				case 5://sök
-					
+					garageUI.searchVehicleMenu();
+					break;
+				case 6:
+					garageUI.setGarageCapacity();
 				}
 			}
 
@@ -124,6 +128,26 @@ public class GarageUI {
 
 		}while(choice != 9);
 
+	}
+
+	private void setGarageCapacity() {
+		int newCapacity = scannerGuard.readInt("Ange en ny kapacitet: ");
+		garage.setCapacity(newCapacity);
+		
+	}
+
+	private void searchVehicleMenu() {
+		String searchTerm = scannerGuard.readLine("Ange registreringsnummer: ");
+		Vehicle foundVehicle;
+		try {
+			foundVehicle = garage.findVehicleByRegistraitionNumber(searchTerm);
+			
+			System.out.println("Hittade: " + foundVehicle);
+		} catch (FoundNoVehicleExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void listAllTypesInGarage() {

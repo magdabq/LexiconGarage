@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Garage {
 
-	private final int maxCapacity;
+	private int maxCapacity;
 	private ArrayList<Vehicle> allParkedVehicles = new ArrayList<Vehicle>();
 	
 	public Garage() {
@@ -171,6 +171,10 @@ public class Garage {
 	public int  getNrOfParkedVehicles() {
 	 int total = allParkedVehicles.size();
 	 return total;
+	}
+
+	public void setCapacity(int newCapacity) {
+		this.maxCapacity =  newCapacity;
 	}	
 
 }	
