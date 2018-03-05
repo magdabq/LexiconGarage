@@ -100,7 +100,7 @@ public class Garage {
 
 	
 	public Vehicle findVehicleByRegistraitionNumber(String registrationNumber)  throws FoundNoVehicleExeption {
-
+		//TODO måste debugga denna metod
 		for (Vehicle fordon : allParkedVehicles) {
 
 			if (fordon.getRegistrationNumber().equals(registrationNumber)) {
