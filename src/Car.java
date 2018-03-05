@@ -4,7 +4,7 @@ public class Car extends Vehicle {
 	private String fuelType;
 
 	public Car(String registrationNumber, String color ) {
-		super(color, registrationNumber, 4);
+		super(registrationNumber,color,4);
 		this.fuelType = "";
 
 	}

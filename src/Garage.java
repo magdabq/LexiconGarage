@@ -18,15 +18,29 @@ public class Garage {
 		Garage garage1 = new Garage();
 		Garage garage2 = new Garage(70);
 		
-		Car c1 = new Car("EDC123", "white");
+		Car c1 = new Car("EBC124", "Blue");
 		Car c2 = new Car("EDC124", "Blue");
 		Car c3 = new Car("EDC125", "Red");
 		Car c4 = new Car("EDC126", "Red");
-		Car c5 = new Car("EDC126", "Green, ");
+		Car c5 = new Car("EDC126", "Green,");
+		
+		Airplane a1 = new Airplane("LDF012","Orange",4,2);
+		Boat b1 = new Boat("YYY555", "white", 6);
+		
 		
 		Motorcycle mc1 = new Motorcycle("ABC111","black", 2);
 		Motorcycle mc2 = new Motorcycle("ABC222","black", 2);
 		Motorcycle mc3 = new Motorcycle("ABC222","white", 2);
+		
+		Bus bu1 = new Bus("white", "FDB078", 4, 50);
+		
+		System.out.println(c2.toString());
+		System.out.println(c4);
+		System.out.println(b1);
+		System.out.println(mc1);
+		System.out.println(a1);
+		System.out.println(bu1);
+		
 		
 		garage1.parkVehicle(c1);
 		garage1.parkVehicle(c2);
@@ -36,6 +50,9 @@ public class Garage {
 		garage1.parkVehicle(mc3);
 		garage1.parkVehicle(c3);
 		garage1.unParkVehicle(mc3);
+		garage1.parkVehicle(b1);
+		
+		System.out.println(c1.getRegistrationNumber());
 		
 		System.out.println("Så här många platser upptagna i Garaget:  " + garage1.getNrOfParkedVehicles());
 		//System.out.println(garage1.getAllParkedVehicles());
@@ -47,15 +64,15 @@ public class Garage {
 		int i = 4;
 		
 		try {
-			resultat = garage1.findVehicleByRegistraitionNumber("EDC123").getRegistrationNumber();
-		System.out.println("Hittade bilen med regnr resultat " + resultat);
+			resultat = garage1.findVehicleByRegistraitionNumber("EBC124").getRegistrationNumber();
+		System.out.println("Hittade fordonet med regnr resultat " + resultat);
 //			
 //			arrayResultat = garage1.findVehiclesByNrOfWheels(i);
 //			System.out.println();
 //			System.out.println("Hittade dessa fordon med " + i + " hjul " + arrayResultat);
 //			
 		} catch (FoundNoVehicleExeption e) {
-			System.out.println("No car found");			
+			System.out.println("No Vehicle found");			
 		}	
 		
 		//Testar och skriver ut regnr på alla fordon som finns i garaget
@@ -69,7 +86,7 @@ public class Garage {
 		ArrayList<String> listaUnikaFordon = garage1.findAllTypesOfVehicles();
 		System.out.println("Fordonstyper i Garaget:");
 		for (String fordonsTyp : listaUnikaFordon) {
-			// TODO OBS! Ger typerna på engelska fixa?
+			
 			System.out.print(" " + fordonsTyp);
 		}
 		
