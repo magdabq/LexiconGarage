@@ -10,9 +10,15 @@ public class Bus extends Vehicle {
 	public Bus(int numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
 	}
+	
 
 	public int getNumberOfSeats() {
 		return numberOfSeats;
+	}
+	
+	@Override
+	public String toString() {
+		return "Buss " + getRegistrationNumber() + ", antal säten: " + numberOfSeats;
 	}
 	
 }

@@ -8,7 +8,6 @@ public class Motorcycle extends Vehicle {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 
 	
 	public int getCylinderVolume() {
@@ -16,10 +15,8 @@ public class Motorcycle extends Vehicle {
 	}
 
 
-
-
 	@Override
 	public String toString() {
-		return "Motorcykel : " + getRegistrationNumber();
+		return "Motorcykel : " + getRegistrationNumber() + ", cylindervolym: " + getCylinderVolume();
 	}
 }

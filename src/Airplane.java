@@ -10,6 +10,9 @@ public class Airplane extends Vehicle {
 		return numberOfEngines;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Flygplan " + getRegistrationNumber() + ", antal motorer: " + numberOfEngines;
+	}
 	
 }

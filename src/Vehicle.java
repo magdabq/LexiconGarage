@@ -16,6 +16,7 @@ public class Vehicle {
 		this(registrationNumber, "", numberOfWheels);
 	}
 	
+	
 	public Vehicle(int numberOfWheels) {
 		this("", "", numberOfWheels);
 	}
@@ -73,6 +74,7 @@ public class Vehicle {
 		return true;
 	}
 	
+	@Override
 	public String toString() {
 		return "Vehicle, registration-number: " + getRegistrationNumber() + ", Nr of wheels: " + getNumberOfWheels() + ", color: " + getColor();
 	}

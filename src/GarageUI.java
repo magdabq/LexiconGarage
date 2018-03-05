@@ -68,7 +68,7 @@ public class GarageUI {
 				System.out.println("2: avregistrera ett fordon");
 				System.out.println("3: Lista parkerade fordon");
 				System.out.println("4. Lista typer av fordon parkerade");
-				System.out.println("5j. Sök på fordon");
+				System.out.println("5. Sök på fordon");
 				System.out.println("9: avsluta");
 				
 				choice = garageUI.scannerGuard.readInt("Ange en siffra: ");//garageUI.scanner.nextInt();
@@ -161,7 +161,7 @@ public class GarageUI {
 			String format = "%" + 5 + "d";
 			System.out.printf(format+"      ", counter);
 			System.out.print(centerText(vehicle.getRegistrationNumber(),12));
-			System.out.printf("%30s\n", vehicle.getClass());
+			System.out.printf("%30s\n", vehicle.getClass().getName());//TODO: gör svensk version
 			counter++;
 		}
 		
@@ -189,25 +189,45 @@ public class GarageUI {
 		//hasReadInt=false;
 
 		switch(vehicleType) {
-		case 0:
+		case 0://bil
 			System.out.println("Skapar ny bil");
 			tempVehicle = new Car(tempRegNr, tempColor);
 			break;
-		case 1:
-			System.out.println("Skapar ny motorcykel");
+		case 1://motorcykel
 			//System.out.println();
-			int numberOfWheels = scannerGuard.readInt("Ange antal hjul (2 eller 3): ");
+			int numberOfWheels = scannerGuard.readInt("Ange antal hjul (2 eller 3) på motorcykeln: ");
 			//hasReadInt=true;
 			if(numberOfWheels==2 || numberOfWheels==3) {
 				tempVehicle = new Motorcycle(tempRegNr, tempColor, numberOfWheels);
 			}	
 			else throw new NoVehicleSelectedException();
 			break;
-		case 2:
+		case 2://buss
+			int numberOfSeats = scannerGuard.readInt("Ange antal säten i bussen: ");
+			if(numberOfSeats>=0) {
+				tempVehicle = new Bus(numberOfSeats);
+			}
+			else {
+				throw new NoVehicleSelectedException();
+			}
 			break;
-		case 3:
+		case 3://båt
+			int length = scannerGuard.readInt("Ange båtens längd i antal hela meter: ");
+			if(length>=0) {
+				tempVehicle = new Boat(length);
+			}
+			else {
+				throw new NoVehicleSelectedException();
+			}
 			break;
-		case 4:
+		case 4://flygplan
+			int numberOfEngines = scannerGuard.readInt("Ange antal motorer på flygplanet: ");
+			if(numberOfEngines>=0) {
+				tempVehicle = new Airplane(numberOfEngines);
+			}
+			else {
+				throw new NoVehicleSelectedException();
+			}
 			break;
 
 		default://om ingen typ bestämts, gör bil
@@ -286,6 +306,14 @@ public class GarageUI {
 	}
 	
 	public String centerText(String text, int maxWidth) {
+		if(text==null) {
+			StringBuilder string = new StringBuilder();
+			//Gör en tom sträng som är så lång som maxWidth
+			for(int i=0;i<maxWidth*0.75;i++) {
+				string.append(' ');
+			}
+			return string.toString();
+		}
 		int length = text.length();
 		StringBuilder string = new StringBuilder();
 		if(length >= maxWidth) {
@@ -308,7 +336,5 @@ public class GarageUI {
 			
 			return string.toString();
 		}
-		
 	}
-
 }

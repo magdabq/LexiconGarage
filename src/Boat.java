@@ -16,6 +16,9 @@ public class Boat extends Vehicle {
 		return length;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Båt " + getRegistrationNumber() + ", längd " + length + " m.";
+	}
 	
 }
