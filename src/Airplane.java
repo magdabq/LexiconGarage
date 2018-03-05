@@ -14,7 +14,7 @@ public class Airplane extends Vehicle {
 	
 	@Override
 	public String toString() {
-		return "Flygplan : " + getRegistrationNumber();
+		return "Flygplan " + getRegistrationNumber() + ", antal motorer: " + numberOfEngines;
 	}
 	
 }

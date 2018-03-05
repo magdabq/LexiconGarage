@@ -17,13 +17,14 @@ public class Motorcycle extends Vehicle {
 	}
 
 
-public int getCylinderVolume() {
-	return cylinderVolume;
-}
+	public int getCylinderVolume() {
+		return cylinderVolume;
+	}
 
 
-@Override
-public String toString() {
-	return "Motorcykel : " + getRegistrationNumber();
-}
+	@Override
+	public String toString() {
+		return "Motorcykel : " + getRegistrationNumber() + ", cylindervolym: " + getCylinderVolume();
+	}
+
 }

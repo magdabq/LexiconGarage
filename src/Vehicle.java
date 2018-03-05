@@ -12,6 +12,7 @@ public class Vehicle {
 		this.numberOfWheels = numberOfWheels;
 	}
 	
+
 //	public Vehicle(String registrationNumber, int numberOfWheels) {
 //		this(registrationNumber, "", numberOfWheels);
 //	}
@@ -26,6 +27,7 @@ public class Vehicle {
 //	
 //	public Vehicle() {
 //	}
+
 
 	public String getRegistrationNumber() {
 		return registrationNumber;
@@ -73,6 +75,7 @@ public class Vehicle {
 		return true;
 	}
 	
+	@Override
 	public String toString() {
 		return "Vehicle, registration-number: " + getRegistrationNumber() + ", Nr of wheels: " + getNumberOfWheels() + ", color: " + getColor();
 	}
