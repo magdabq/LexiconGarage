@@ -28,7 +28,7 @@ public class GarageUI {
 		garageUI.vehicleTypesLocalLang.add("Bil");//1:Bil, 2:Motorcykel, 3: Buss, 4: båt, 5: flygplan
 		garageUI.vehicleTypesLocalLang.add("Motorcykel");
 		garageUI.vehicleTypesLocalLang.add("Buss");
-		garageUI.vehicleTypesLocalLang.add("Boat");
+		garageUI.vehicleTypesLocalLang.add("Båt");
 		garageUI.vehicleTypesLocalLang.add("Flygplan");
 		
 		
@@ -111,7 +111,7 @@ public class GarageUI {
 					break;
 				case 3:
 					//ArrayList<Vehicle> list = garageUI.garage.
-					garageUI.listAllVehiclesNumbered();
+					garageUI.listAllVehiclesNumberedFull();
 					break;
 				case 4://lista typer av fordon
 					garageUI.listAllTypesInGarage();
@@ -132,13 +132,12 @@ public class GarageUI {
 	}
 
 	private void searchMenu() {
-		int choice = scannerGuard.readInt("1: sök på registreringsnummer\n2: sök på antal hjul: ");
+		System.out.println("1: sök på registreringsnummer\n2: sök på antal hjul");
+		int choice = scannerGuard.readInt("Ange en siffra: ");
 		if(choice==1) {
-			
 			searchVehicleByRegistrationNumberMenu();
 		}
 		else if(choice==2) {
-			
 			searchVehicleByNumberOfWheelsMenu();
 			
 		}
@@ -190,18 +189,13 @@ public class GarageUI {
 			allTypes.add(type.getClass().getName());
 		}
 		
-		int counter=0;
-		//int foundIndex = -1;
 		for(String typeString : foundTypes) {
 			
 			if(allTypes.contains(typeString)) {
 				int x = allTypes.indexOf(typeString);
 				System.out.println(vehicleTypesLocalLang.get(x));
 			}
-			
-			counter++;
 		}
-		
 	}
 
 	private void listAllVehiclesNumbered() {
@@ -214,10 +208,24 @@ public class GarageUI {
 			String format = "%" + 5 + "d";
 			System.out.printf(format+"      ", counter);
 			System.out.print(centerText(vehicle.getRegistrationNumber(),12));
-			System.out.printf("%30s\n", vehicle.getClass().getName());//TODO: gör svensk version
+			System.out.printf("%30s\n", getLocalVehicleTypeName(vehicle.getClass().getName()));//TODO: gör svensk version
 			counter++;
 		}
 		
+	}
+	
+	private void listAllVehiclesNumberedFull() {
+		int counter =1;
+		if(garage.getAllParkedVehicles().size()>0) {
+			System.out.println("Löpnummer  Info");
+		}
+		
+		for(Vehicle vehicle: garage.getAllParkedVehicles()) {
+			String format = "%" + 5 + "d";
+			System.out.printf(format+"      ", counter);
+			System.out.println(vehicle);
+			counter++;
+		}
 	}
 	
 	private void printListHeader() {
@@ -389,5 +397,19 @@ public class GarageUI {
 			
 			return string.toString();
 		}
+	}
+	
+	/**
+	 * A method to get the corresponding localized name for the english name
+	 * @param englishName - the name returned by .getClass.getName()
+	 * @return - The localized name
+	 */
+	public String getLocalVehicleTypeName(String englishName) {
+		for(Vehicle vehicle: vehicleClasses) {
+			if(vehicle.getClass().getName().equals(englishName)) {
+				return vehicleTypesLocalLang.get(vehicleClasses.indexOf(vehicle));
+			}
+		}
+		return "";
 	}
 }
