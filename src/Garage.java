@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Garage {
 
@@ -76,7 +78,7 @@ public class Garage {
 		}	
 		
 		//Testar och skriver ut regnr på alla fordon som finns i garaget
-		ArrayList<Vehicle> listaAvAllaFordon = garage1.getAllParkedVehicles();
+		List<Vehicle> listaAvAllaFordon = garage1.getAllParkedVehicles();
 		System.out.println("Alla fordons regnr ");
 		for (Vehicle fordon : listaAvAllaFordon) {
 			System.out.println(fordon);
@@ -164,8 +166,9 @@ public class Garage {
 	}
 	 
 
-	public ArrayList<Vehicle> getAllParkedVehicles() {
-		return allParkedVehicles;
+	public List<Vehicle> getAllParkedVehicles() {
+		return  Collections.unmodifiableList(allParkedVehicles);
+		//return allParkedVehicles;
 	}
 
 	public int  getNrOfParkedVehicles() {

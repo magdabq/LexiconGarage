@@ -80,14 +80,19 @@ public class GarageUI {
 
 					System.out.println("Parkera ett fordon...");
 					try {
+						//Väljer fordonstyp
 						subChoice = garageUI.chooseVehicleTypeMenu(garageUI.scannerGuard);
+						
 					} catch (NoVehicleTypeSelectedException e1) {
 						System.out.println("Ingen fordonstyp angiven");
 					}
 					//
 					try {
+						//Försök parkera/registrera
 						garageUI.garage.parkVehicle(
+								
 								garageUI.registerVehicleMenu(garageUI.scannerGuard, subChoice)
+								
 								);
 					} catch (NoVehicleSelectedException e) {
 						System.out.println("Inget fordon angivet");
@@ -98,6 +103,7 @@ public class GarageUI {
 					//TODO: avregistrera ett fordon
 					
 					//Skriv lista med alla fordon, numrerat
+					System.out.println("Avregistrera ett fordon");
 					
 					garageUI.listAllVehiclesNumbered();
 					
@@ -110,6 +116,7 @@ public class GarageUI {
 					
 					break;
 				case 3:
+					//Lista alla fordon
 					//ArrayList<Vehicle> list = garageUI.garage.
 					garageUI.listAllVehiclesNumberedFull();
 					break;
@@ -308,11 +315,11 @@ public class GarageUI {
 
 
 		if(answer.equalsIgnoreCase("j")) {
-			System.out.println("Ska returnera " + tempVehicle);
+			//System.out.println("Ska returnera " + tempVehicle);
 			return tempVehicle;
 		}
 		else {
-			System.out.println("Inget fordon angivet");
+			//System.out.println("Inget fordon angivet");
 			throw new NoVehicleSelectedException();
 		}
 	}
@@ -347,18 +354,24 @@ public class GarageUI {
 		
 		
 		int choice = 0;
+		
 		System.out.println("Välj typ av fordon\n");
 		int count=1;
 		for(String type: vehicleTypesLocalLang) {
+			
 			System.out.println(count + ": " + type);
+			
 			count++;
+			
 		}
 		//System.out.println();
 		choice = scannerGuard.readInt("Ange en siffra: ");
 		//hasReadInt=true;
+		
 		if(choice > vehicleTypesLocalLang.size() || choice < 1) {
 			throw new NoVehicleTypeSelectedException();
 		}
+		
 		//scanner.nextLine();//måste vara så efter en nextInt om efterföljande är String
 		return choice-1;
 	}
